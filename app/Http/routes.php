@@ -34,3 +34,4 @@ $app->get('/farmbiz_api/category/{id}', 'CategoriesController@getCategory');
 $app->get('/farmbiz_api/articles', 'ArticlesController@listAll');
 $app->get('/farmbiz_api/article/{id}', 'ArticlesController@getArticle');
 $app->get('/farmbiz_api/category/{id}/articles', 'ArticlesController@getArticlesByCategory');
+$app->get('/farmbiz_api/articles/featured', 'ArticlesController@getfeaturedArticles');
