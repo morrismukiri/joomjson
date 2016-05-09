@@ -6,7 +6,7 @@ use DOMDocument;
 class ArticlesController extends Controller {
   
   public function listAll(){
-    $articles = Articles::where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','images','introtext','publish_up','created']);
+    $articles = Articles::where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','images','introtext','publish_up','created','fulltext']);
     if($articles){
       return response()->json($this->formatArticle($articles), 200);
     }
@@ -17,7 +17,7 @@ class ArticlesController extends Controller {
   
   public function getArticle($id){
     // $articles = Articles::find($id);
-    $articles = Articles::where('id','=',$id)->get(['id','title','images','introtext','publish_up','created']);
+    $articles = Articles::where('id','=',$id)->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
     if($articles){
       // var_dump($articles);
       return response()->json($this->formatArticle($articles), 200);
@@ -27,17 +27,19 @@ class ArticlesController extends Controller {
   }
   
   public function getArticlesByCategory($id){
-    $articles = Articles::where('catid','=', $id)->where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','images','introtext','publish_up','created']);
+    $articles = Articles::where('catid','=', $id)->where('state','=','1')->orderBy('publish_up', 'DESC')->take(30)->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
     if($articles){
-      return response()->json($this->formatArticle($articles), 200);
+      // response()->header('Cache-Control','public, max-age=31536000');
+      return response()->json($this->formatArticle($articles), 200)->header('Cache-Control','public, max-age=31536000');
     }
     
     return response()->json(['data' => 'Articles in this category not found'], 404);    
   }
   public function getfeaturedArticles(){
-    $articles = Articles::where('featured','=', '1')->where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','images','introtext','publish_up','created']);
+    $articles = Articles::where('featured','=', '1')->where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
     if($articles){
-      return response()->json($this->formatArticle($articles), 200);
+        response();
+      return response()->json($this->formatArticle($articles), 200)->header('Cache-Control','public, max-age=31536000');
     }
     
     return response()->json(['data' => 'Articles in this category not found'], 404);    
@@ -60,6 +62,9 @@ class ArticlesController extends Controller {
                 }
               }
               
+            }
+            if(!$article['introtext']){
+              $article['introtext']=$article['fulltext'];
             }
           
           } 

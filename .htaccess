@@ -1,7 +1,11 @@
 DirectoryIndex index.php
 Options +FollowSymlinks
 Options -Indexes
-
+RewriteRule (^\.|/\.) - [F]	
+<FilesMatch "\.(ini|log|sh|zip)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch>
 RewriteEngine on
 
 #RewriteRule . - [E=REWRITEBASE:/farmbiz_api/]
