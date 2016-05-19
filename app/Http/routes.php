@@ -15,7 +15,7 @@ $app->get('/', function () use ($app) {
     return 'Beautiful';
 });
 
-$app->get('farmbiz_api/v', function () use ($app) {
+$app->get('v', function () use ($app) {
     $farmbiz_api=  array(
     	'Name' => 'FarmBiz Africa',
     	'Version'=>'1.0.0',
@@ -27,11 +27,13 @@ $app->get('farmbiz_api/v', function () use ($app) {
 $app->get('/hello', function () use ($app) {
     return 'Nothing to see here';
 });
-$app->get('farmbiz_api/categories','CategoriesController@listAll');
+$app->get('categories','CategoriesController@listAll');
 
-$app->get('farmbiz_api/category/{id}', 'CategoriesController@getCategory');
+$app->get('category/{id}', 'CategoriesController@getCategory');
 
-$app->get('farmbiz_api/articles', 'ArticlesController@listAll');
-$app->get('farmbiz_api/article/{id}', 'ArticlesController@getArticle');
-$app->get('farmbiz_api/category/{id}/articles', 'ArticlesController@getArticlesByCategory');
-$app->get('farmbiz_api/articles/featured', 'ArticlesController@getfeaturedArticles');
+$app->get('articles', 'ArticlesController@listAll');
+$app->get('article/{id}', 'ArticlesController@getArticle');
+$app->get('category/{id}/articles', 'ArticlesController@getArticlesByCategory');
+$app->get('articles/featured', 'ArticlesController@getfeaturedArticles');
+$app->get('articles/latest[/{limit}]', 'ArticlesController@getLatestArticles');
+$app->get('articles/latest/tag/{tag}[/{limit}]', 'ArticlesController@getArticlesByTag');

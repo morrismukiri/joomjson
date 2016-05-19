@@ -44,6 +44,24 @@ class ArticlesController extends Controller {
     
     return response()->json(['data' => 'Articles in this category not found'], 404);    
   }
+  public function getLatestArticles($limit=10){
+    $articles = Articles::where('featured','=', '0')->where('state','=','1')->orderBy('publish_up', 'DESC')->take($limit)->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
+    if($articles){
+        response();
+      return response()->json($this->formatArticle($articles), 200)->header('Cache-Control','public, max-age=31536000');
+    }
+    
+    return response()->json(['data' => 'Articles in this category not found'], 404);    
+  }
+  public function getArticlesByTag($tag,$limit=10){
+    $articles = Articles::where('featured','=', '0')->where('state','=','1')->orderBy('publish_up', 'DESC')->take($limit)->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
+    if($articles){
+        response();
+      return response()->json($this->formatArticle($articles), 200)->header('Cache-Control','public, max-age=31536000');
+    }
+    
+    return response()->json(['data' => 'Articles in this category not found'], 404);    
+  }
   function formatArticle($articles){
     if($articles){
          foreach ($articles as $article) {
@@ -63,8 +81,10 @@ class ArticlesController extends Controller {
               }
               
             }
-            if(!$article['introtext']){
+            if(!$article['introtext'] && !empty($article['fulltext']) ){
               $article['introtext']=$article['fulltext'];
+            }elseif (!$article['fulltext'] && !empty($article['introtext'])) {
+              $article['fulltext']=$article['introtext'];
             }
           
           } 
