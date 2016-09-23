@@ -21,13 +21,11 @@ class ArticlesController extends Controller {
   
   public function getArticle($id){
     // $articles = Articles::find($id);
-    $articles = Articles::where('id','=',$id)->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
-    if($articles){
-      // var_dump($articles);
-      return response()->json($this->formatArticle($articles), 200);
+    $article = Articles::where('id','=',$id)->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
+    if($article->isEmpty()){
+      return response()->json(['error' => 'Article can not be found'], 404);
     }
-    
-    return response()->json(['data' => 'Article can not be found'], 404);
+    return response()->json($this->formatArticle($article)[0], 200);
   }
   
   public function getArticlesByCategory($id){
