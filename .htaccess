@@ -1,7 +1,7 @@
 DirectoryIndex index.php
 Options +FollowSymlinks
 Options -Indexes
-RewriteRule (^\.|/\.) - [F]	
+RewriteRule (^\.|/\.) - [F]
 <FilesMatch "\.(ini|log|sh|zip)$">
 Order Allow,Deny
 Deny from all
@@ -9,9 +9,7 @@ Deny from all
 RewriteEngine on
 
 #RewriteRule . - [E=REWRITEBASE:/farmbiz_api/]
-#RewriteBase /
- RewriteCond %{REQUEST_FILENAME} !-d
- RewriteRule ^(.*)/$ /$1 [L,R=301]
+RewriteBase /farmbiz_api
 
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f

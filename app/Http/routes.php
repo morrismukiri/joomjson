@@ -11,22 +11,10 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return 'Beautiful';
-});
+$app->get('/', 'HomeController@index');
 
-$app->get('v', function () use ($app) {
-    $farmbiz_api=  array(
-    	'Name' => 'FarmBiz Africa',
-    	'Version'=>'1.0.0',
-    	'author'=>'Morris Mukiri',
-    	'ok'=>TRUE
-    	);
-    return response()->json(['data' => $farmbiz_api], 200);
-});
-$app->get('/hello', function () use ($app) {
-    return 'Nothing to see here';
-});
+$app->get('v', 'HomeController@version');
+
 $app->get('categories','CategoriesController@listAll');
 
 $app->get('category/{id}', 'CategoriesController@getCategory');

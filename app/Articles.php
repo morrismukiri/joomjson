@@ -3,10 +3,12 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Articles extends Model {
-  
-  protected $table = 'kf049_content';
+	public function __construct()
+	{
+		$this->table = env('DB_TABLE_PREFIX', '').'content';
+	}
+  protected $table;
   protected $primaryKey = 'id';
-  
-  //Some additional Model code
+
   
 }
