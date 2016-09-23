@@ -19,9 +19,9 @@ $app->get('categories','CategoriesController@listAll');
 
 $app->get('category/{id}', 'CategoriesController@getCategory');
 
-$app->get('articles', 'ArticlesController@listAll');
 $app->get('article/{id}', 'ArticlesController@getArticle');
 $app->get('category/{id}/articles', 'ArticlesController@getArticlesByCategory');
-$app->get('articles/featured', 'ArticlesController@getfeaturedArticles');
+$app->get('articles/featured[/{limit}]', 'ArticlesController@getfeaturedArticles');
 $app->get('articles/latest[/{limit}]', 'ArticlesController@getLatestArticles');
 $app->get('articles/latest/tag/{tag}[/{limit}]', 'ArticlesController@getArticlesByTag');
+$app->get('articles[/{count}]', 'ArticlesController@listAll');

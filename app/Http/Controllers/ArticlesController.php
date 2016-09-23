@@ -5,8 +5,12 @@ use DOMDocument;
 
 class ArticlesController extends Controller {
   
-  public function listAll(){
-    $articles = Articles::where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','images','introtext','publish_up','created','fulltext']);
+  public function listAll($count=0){
+    $articlesQuery = Articles::where('state','=','1')->orderBy('publish_up', 'DESC');
+    if($count){
+      $articlesQuery->take($count);
+    }
+    $articles= $articlesQuery->get(['id','title','images','introtext','publish_up','created','fulltext']);
     if($articles){
       return response()->json($this->formatArticle($articles), 200);
     }
@@ -35,8 +39,12 @@ class ArticlesController extends Controller {
     
     return response()->json(['data' => 'Articles in this category not found'], 404);    
   }
-  public function getfeaturedArticles(){
-    $articles = Articles::where('featured','=', '1')->where('state','=','1')->orderBy('publish_up', 'DESC')->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
+  public function getfeaturedArticles($limit=0){
+    $articlesQuery = Articles::where('featured','=', '1')->where('state','=','1')->orderBy('publish_up', 'DESC');
+    if ($limit) {
+     $articlesQuery->take($limit);
+    }
+    $articles=$articlesQuery->get(['id','title','alias','images','introtext','publish_up','created','fulltext']);
     if($articles){
         response();
       return response()->json($this->formatArticle($articles), 200)->header('Cache-Control','public, max-age=31536000');
