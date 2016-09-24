@@ -155,5 +155,5 @@ To retrieve joomla content, call the api using following url format
     `GET articles/latest/x` Where **x** is the maximum number of articles to return. it is optional and defaults to **10**
     Returns JSON object array of recently published articles.
 
-9. Tagged articles
+9. ## Tagged articles
     `GET articles/latest/tag/name/x` where name is the tag name and x is the maximum count of articles to return
