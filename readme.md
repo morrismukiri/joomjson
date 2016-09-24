@@ -139,14 +139,17 @@ To retrieve joomla content, call the api using following url format
     }
     ```
 6.  ## Articles in a category
+
     `GET category/x/article` Where **x** is the category id
     Returns JSON object array of articles in the category
 
 7.  ## Featured articles
+
     `GET articles/featured/x` Where **x** is the maximum number of articles to return. it is optional and defaults to **10**
     Returns JSON object array of articles marked as featured.
 
 8.  ## Latest articles
+
     `GET articles/latest/x` Where **x** is the maximum number of articles to return. it is optional and defaults to **10**
     Returns JSON object array of recently published articles.
 9.  ## Tagged articles
