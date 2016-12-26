@@ -1,5 +1,5 @@
 # **Joomla JSON** 
-*Get joomla content using a JSON API*
+*Get joomla content as JSON using a REST API*
 
 All articles requests can be cached locally
 
