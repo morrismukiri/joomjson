@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories extends Model {
   
-  protected $table = 'kf049_categories';
+  protected $table =  env('DB_TABLE_PREFIX', '').categories';
   protected $primaryKey = 'id';
   
   //Some additional Model code
